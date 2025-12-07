@@ -1,5 +1,13 @@
 [
   {
+    "id": "p_1765081764686_293",
+    "name": "Coffee Beans",
+    "price": 50000,
+    "description": "Premium arabica beans",
+    "img": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22180%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E",
+    "createdAt": "2025-12-07T04:29:24.686Z"
+  },
+  {
     "id": "p_1765075953285_556",
     "name": "Cappuccino",
     "price": 3,

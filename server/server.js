@@ -142,8 +142,17 @@ app.post('/api/products', authenticateToken, upload.single('image'), (req, res) 
 // Auth: Register
 app.post('/api/auth/register', (req, res) => {
     const { name, email, password } = req.body || {};
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Email dan password harus diisi' });
+    if (!email || !password || !name) {
+        return res.status(400).json({ error: 'Nama, email, dan password harus diisi' });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Format email tidak valid' });
+    }
+
+    if (password.length < 6) {
+        return res.status(400).json({ error: 'Password minimal 6 karakter' });
     }
 
     const users = loadUsers();
@@ -155,9 +164,10 @@ app.post('/api/auth/register', (req, res) => {
     const hashed = bcrypt.hashSync(password, 8);
     const newUser = {
         id: 'u_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-        name: name || '',
+        name: name,
         email: email.toLowerCase(),
         password: hashed,
+        role: 'user',
         createdAt: new Date().toISOString()
     };
 

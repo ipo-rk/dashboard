@@ -7,40 +7,70 @@
   <style>
     * { box-sizing: border-box; }
     body { font-family: Segoe UI, Arial; margin: 0; background: #f5f5f5; }
-    .header { background: #333; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-    .header h1 { margin: 0; }
-    .header button { padding: 8px 16px; background: #ff6b6b; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .header h1 { margin: 0; font-size: 24px; }
+    .header-right { display: flex; align-items: center; gap: 20px; }
+    .user-badge { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; font-size: 14px; }
+    .user-badge .role { font-weight: bold; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+    .header button { padding: 10px 16px; background: #ff6b6b; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    .header button:hover { background: #ff5252; }
     .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+    .search-bar { background: white; padding: 20px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+    .search-bar input:focus { outline: none; border-color: #667eea; }
     .user-info { background: white; padding: 15px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .add-product { background: white; padding: 20px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .add-product form { display: grid; gap: 10px; }
-    .add-product input, .add-product textarea, .add-product button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-    .add-product button { background: #4CAF50; color: white; border: none; cursor: pointer; }
-    .add-product button:hover { background: #45a049; }
-    .msg { margin: 10px 0; padding: 10px; border-radius: 4px; }
+    .admin-section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: none; }
+    .admin-section.show { display: block; }
+    .btn-add { background: #667eea; color: white; padding: 12px 20px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; margin-bottom: 15px; }
+    .btn-add:hover { background: #5568d3; }
+    .add-form { background: #f9f9f9; padding: 15px; border-radius: 4px; display: none; margin-top: 15px; }
+    .add-form.show { display: block; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label { font-weight: bold; margin-bottom: 5px; color: #555; font-size: 14px; }
+    .form-group input, .form-group textarea { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #667eea; }
+    .form-actions { display: flex; gap: 10px; }
+    .form-actions button { flex: 1; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn-save { background: #4CAF50; color: white; }
+    .btn-save:hover { background: #45a049; }
+    .btn-cancel { background: #9e9e9e; color: white; }
+    .btn-cancel:hover { background: #757575; }
+    .msg { margin-bottom: 15px; padding: 12px; border-radius: 4px; display: none; }
+    .msg.show { display: block; }
     .msg.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
     .msg.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-    .product-card { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .product-img { width: 100%; height: 200px; object-fit: cover; background: #f0f0f0; }
     .product-body { padding: 15px; }
-    .product-body h3 { margin: 0 0 10px 0; }
-    .product-price { color: #4CAF50; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+    .product-body h3 { margin: 0 0 10px 0; color: #333; }
+    .product-price { color: #667eea; font-size: 18px; font-weight: bold; margin-bottom: 8px; }
     .product-desc { color: #666; font-size: 14px; margin-bottom: 15px; max-height: 60px; overflow: hidden; }
     .product-actions { display: flex; gap: 10px; }
-    .product-actions button { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; }
-    .product-actions .edit { background: #2196F3; color: white; }
-    .product-actions .delete { background: #f44336; color: white; }
-    .product-actions button:hover { opacity: 0.8; }
-    .loading { text-align: center; padding: 20px; }
+    .product-actions button { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+    .btn-edit { background: #2196F3; color: white; }
+    .btn-edit:hover { background: #1976D2; }
+    .btn-delete { background: #f44336; color: white; }
+    .btn-delete:hover { background: #d32f2f; }
+    .empty { text-align: center; padding: 40px; color: #999; grid-column: 1 / -1; }
+    .loading { text-align: center; padding: 40px; color: #999; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+    .modal.show { display: flex; align-items: center; justify-content: center; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; }
+    .modal-content h3 { margin-top: 0; color: #333; }
   </style>
 </head>
 <body>
   <div class="header">
     <h1>Dashboard Produk</h1>
-    <div>
-      <span id="userName" style="margin-right: 20px;"></span>
-      <button onclick="logout()">Logout</button>
+    <div class="header-right">
+      <div class="user-badge">
+        <div id="userName"></div>
+        <div class="role" id="userRole"></div>
+      </div>
+      <button onclick="handleLogout()">Logout</button>
     </div>
   </div>
 
@@ -49,16 +79,39 @@
       <p>Selamat datang, <strong id="userEmail"></strong></p>
     </div>
 
-    <div class="add-product">
-      <h3>Tambah Produk Baru</h3>
-      <div id="addMsg"></div>
-      <form id="addProductForm" enctype="multipart/form-data">
-        <input type="text" id="productName" placeholder="Nama Produk" required />
-        <input type="number" id="productPrice" placeholder="Harga" step="0.01" required />
-        <textarea id="productDesc" placeholder="Deskripsi (opsional)" rows="3"></textarea>
-        <input type="file" id="productImage" accept="image/*" />
-        <button type="submit">Tambah Produk</button>
-      </form>
+    <div id="addMsg" class="msg"></div>
+
+    <div class="admin-section" id="adminSection">
+      <button class="btn-add" onclick="toggleAddForm()">+ Tambah Produk Baru</button>
+      <div class="add-form" id="addForm">
+        <h4 style="margin-top: 0;">Tambah Produk Baru</h4>
+        <div class="form-row">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="productName">Nama Produk</label>
+            <input type="text" id="productName" placeholder="Nama produk" />
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Harga</label>
+            <input type="number" id="productPrice" placeholder="0" step="0.01" />
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="productDesc">Deskripsi</label>
+            <textarea id="productDesc" placeholder="Deskripsi produk" rows="3"></textarea>
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="productImage">Gambar</label>
+            <input type="file" id="productImage" accept="image/*" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-save" onclick="handleAddProduct()">Simpan</button>
+          <button class="btn-cancel" onclick="toggleAddForm()">Batal</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Cari produk berdasarkan nama atau deskripsi..." />
     </div>
 
     <div id="productList" class="products">
@@ -66,112 +119,201 @@
     </div>
   </div>
 
-  <script>
-    const apiBase = 'http://localhost:5000/api';
+  <!-- Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>Edit Produk</h3>
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="editName">Nama Produk</label>
+        <input type="text" id="editName" />
+      </div>
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="editPrice">Harga</label>
+        <input type="number" id="editPrice" step="0.01" />
+      </div>
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="editDesc">Deskripsi</label>
+        <textarea id="editDesc" rows="3"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="editImage">Gambar (kosongkan jika tidak ingin mengubah)</label>
+        <input type="file" id="editImage" accept="image/*" />
+      </div>
+      <div class="form-actions">
+        <button class="btn-save" onclick="handleSaveEdit()">Simpan Perubahan</button>
+        <button class="btn-cancel" onclick="closeEditModal()">Batal</button>
+      </div>
+    </div>
+  </div>
 
-    // Check auth on load
+  <script>
+    const API_BASE = 'http://localhost:5000/api';
+    let products = [];
+    let currentEditId = null;
+    let currentUser = null;
+
     window.addEventListener('load', () => {
-      const token = localStorage.getItem('auth_token');
-      const user = localStorage.getItem('auth_user');
-      if (!token || !user) {
-        location.href = 'login.html';
-        return;
-      }
-      const userData = JSON.parse(user);
-      document.getElementById('userName').textContent = userData.name || userData.email;
-      document.getElementById('userEmail').textContent = userData.email;
+      if (!isAuthenticated()) { location.href = 'login.html'; return; }
+      currentUser = JSON.parse(localStorage.getItem('auth_user'));
+      document.getElementById('userName').textContent = currentUser.name || currentUser.email;
+      document.getElementById('userRole').textContent = currentUser.role;
+      document.getElementById('userEmail').textContent = currentUser.email;
+      if (currentUser.role === 'admin') document.getElementById('adminSection').classList.add('show');
       loadProducts();
-      setupForm();
+      document.getElementById('searchInput').addEventListener('input', handleSearch);
     });
 
-    function setupForm() {
-      document.getElementById('addProductForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('auth_token');
-        const addMsg = document.getElementById('addMsg');
-        addMsg.textContent = '';
+    function isAuthenticated() { return !!localStorage.getItem('auth_token'); }
+    function getAuthToken() { return localStorage.getItem('auth_token'); }
 
-        const formData = new FormData();
-        formData.append('name', document.getElementById('productName').value);
-        formData.append('price', document.getElementById('productPrice').value);
-        formData.append('description', document.getElementById('productDesc').value);
-        if (document.getElementById('productImage').files[0]) {
-          formData.append('image', document.getElementById('productImage').files[0]);
-        }
-
-        try {
-          const res = await fetch(`${apiBase}/products`, {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` },
-            body: formData
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Gagal menambah produk');
-          addMsg.className = 'msg success';
-          addMsg.textContent = 'Produk berhasil ditambahkan!';
-          document.getElementById('addProductForm').reset();
-          loadProducts();
-        } catch (err) {
-          addMsg.className = 'msg error';
-          addMsg.textContent = err.message;
-        }
-      });
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${API_BASE}/products`);
+        products = await res.json();
+        renderProducts(products);
+      } catch (err) {
+        document.getElementById('productList').innerHTML = `<div class="error" style="color: red;">Error: ${err.message}</div>`;
+      }
     }
 
-    function loadProducts() {
-      fetch(`${apiBase}/products`)
-        .then(r => r.json())
-        .then(products => {
-          const list = document.getElementById('productList');
-          if (products.length === 0) {
-            list.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Belum ada produk.</p>';
-            return;
-          }
-          list.innerHTML = products.map(p => `
-            <div class="product-card">
-              <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'" />
-              <div class="product-body">
-                <h3>${p.name}</h3>
-                <div class="product-price">Rp ${parseFloat(p.price).toLocaleString('id-ID', { minimumFractionDigits: 0 })}</div>
-                <p class="product-desc">${p.description || '(Tidak ada deskripsi)'}</p>
-                <div class="product-actions">
-                  <button class="edit" onclick="editProduct('${p.id}')">Edit</button>
-                  <button class="delete" onclick="deleteProduct('${p.id}')">Hapus</button>
-                </div>
-              </div>
+    function renderProducts(list) {
+      const container = document.getElementById('productList');
+      if (list.length === 0) { container.innerHTML = '<div class="empty">Belum ada produk</div>'; return; }
+      container.innerHTML = list.map(p => `
+        <div class="product-card">
+          <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'" />
+          <div class="product-body">
+            <h3>${escapeHtml(p.name)}</h3>
+            <div class="product-price">Rp ${formatNumber(p.price)}</div>
+            <p class="product-desc">${escapeHtml(p.description || '(Tidak ada deskripsi)')}</p>
+            <div class="product-actions">
+              ${currentUser.role === 'admin' ? `<button class="btn-edit" onclick="openEditModal('${p.id}')">Edit</button><button class="btn-delete" onclick="handleDelete('${p.id}')">Hapus</button>` : '<span style="color: #999; font-size: 13px;">Tampilan saja</span>'}
             </div>
-          `).join('');
-        })
-        .catch(err => {
-          document.getElementById('productList').innerHTML = `<p style="color: red; grid-column: 1 / -1;">Error: ${err.message}</p>`;
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+      renderProducts(filtered);
+    }
+
+    function toggleAddForm() { document.getElementById('addForm').classList.toggle('show'); }
+
+    async function handleAddProduct() {
+      const name = document.getElementById('productName').value.trim();
+      const price = document.getElementById('productPrice').value;
+      const desc = document.getElementById('productDesc').value;
+      const image = document.getElementById('productImage').files[0];
+      const msg = document.getElementById('addMsg');
+      msg.className = 'msg';
+
+      if (!name || name.length < 2) { msg.textContent = 'Nama minimal 2 karakter'; msg.classList.add('error', 'show'); return; }
+      if (!price || parseFloat(price) <= 0) { msg.textContent = 'Harga harus > 0'; msg.classList.add('error', 'show'); return; }
+
+      try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('description', desc);
+        if (image) formData.append('image', image);
+
+        const res = await fetch(`${API_BASE}/products`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${getAuthToken()}` },
+          body: formData
         });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Gagal menambah produk');
+
+        msg.textContent = 'Produk berhasil ditambahkan!';
+        msg.classList.add('success', 'show');
+        document.getElementById('addForm').classList.remove('show');
+        document.getElementById('productName').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productDesc').value = '';
+        document.getElementById('productImage').value = '';
+        loadProducts();
+      } catch (err) {
+        msg.textContent = err.message;
+        msg.classList.add('error', 'show');
+      }
     }
 
-    function editProduct(id) {
-      alert('Edit produk untuk ID: ' + id + ' (belum diimplementasi)');
+    function openEditModal(id) {
+      currentEditId = id;
+      const product = products.find(p => p.id === id);
+      if (product) {
+        document.getElementById('editName').value = product.name;
+        document.getElementById('editPrice').value = product.price;
+        document.getElementById('editDesc').value = product.description || '';
+        document.getElementById('editImage').value = '';
+        document.getElementById('editModal').classList.add('show');
+      }
     }
 
-    function deleteProduct(id) {
-      const token = localStorage.getItem('auth_token');
+    function closeEditModal() { currentEditId = null; document.getElementById('editModal').classList.remove('show'); }
+
+    async function handleSaveEdit() {
+      const name = document.getElementById('editName').value.trim();
+      const price = document.getElementById('editPrice').value;
+      const desc = document.getElementById('editDesc').value;
+      const image = document.getElementById('editImage').files[0];
+
+      if (!name || name.length < 2) { alert('Nama minimal 2 karakter'); return; }
+      if (!price || parseFloat(price) <= 0) { alert('Harga harus > 0'); return; }
+
+      try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('description', desc);
+        if (image) formData.append('image', image);
+
+        const res = await fetch(`${API_BASE}/products/${currentEditId}`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${getAuthToken()}` },
+          body: formData
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Gagal mengubah produk');
+
+        alert('Produk berhasil diubah!');
+        closeEditModal();
+        loadProducts();
+      } catch (err) {
+        alert(`Error: ${err.message}`);
+      }
+    }
+
+    async function handleDelete(id) {
       if (!confirm('Yakin hapus produk ini?')) return;
-      fetch(`${apiBase}/products/${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-        .then(r => r.json())
-        .then(data => {
-          if (data.error) throw new Error(data.error);
-          alert('Produk dihapus!');
-          loadProducts();
-        })
-        .catch(err => alert('Error: ' + err.message));
+      try {
+        const res = await fetch(`${API_BASE}/products/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${getAuthToken()}` }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Gagal hapus produk');
+        alert('Produk dihapus!');
+        loadProducts();
+      } catch (err) {
+        alert(`Error: ${err.message}`);
+      }
     }
 
-    function logout() {
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('auth_user');
-      location.href = 'login.html';
+    function handleLogout() {
+      if (confirm('Yakin ingin logout?')) {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_user');
+        location.href = 'login.html';
+      }
     }
+
+    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    function formatNumber(num) { return new Intl.NumberFormat('id-ID').format(num); }
   </script>
 </body>
 </html>
