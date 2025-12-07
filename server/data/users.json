@@ -19,5 +19,12 @@
     "email": "fresh@example.com",
     "password": "$2a$08$.u7Qwsb3uluxg1WFKnKsneQUo6AiYoPmfBJ6ZCNXQLRCqmbp.uYGm",
     "createdAt": "2025-12-07T04:29:02.845Z"
+  },
+  {
+    "id": "u_1765083097315_741",
+    "name": "Devp Rick",
+    "email": "rizaldoricky@gmail.com",
+    "password": "$2a$08$7FMS0SvtYS3ZQKDgvk6nJORNb2VKT/Ym2JaaiXotUinA8nMBJlqKu",
+    "createdAt": "2025-12-07T04:51:37.315Z"
   }
 ]
