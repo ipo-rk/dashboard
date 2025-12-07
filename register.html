@@ -1,105 +1,213 @@
 <!doctype html>
 <html>
+
 <head>
-  <meta charset="utf-8" />
-  <title>Register - Dashboard</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: Segoe UI, Arial; margin: 40px; background: #f5f5f5; }
-    .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    h2 { text-align: center; color: #333; }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-    input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
-    input:focus { outline: none; border-color: #4CAF50; box-shadow: 0 0 5px rgba(76,175,80,0.3); }
-    input.error { border-color: #f44336; }
-    .error-text { color: #f44336; font-size: 13px; margin-top: 3px; display: none; }
-    .error-text.show { display: block; }
-    .btn { width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; }
-    .btn:hover { background: #45a049; }
-    .msg { margin-top: 20px; padding: 12px; border-radius: 4px; display: none; }
-    .msg.show { display: block; }
-    .msg.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .msg.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    .link-section { text-align: center; margin-top: 20px; }
-    .link-section a { color: #4CAF50; text-decoration: none; }
-    .password-strength { margin-top: 5px; height: 5px; background: #ddd; border-radius: 3px; overflow: hidden; }
-    .password-strength-bar { height: 100%; width: 0%; background: #f44336; transition: all 0.3s; }
-  </style>
+    <meta charset="utf-8" />
+    <title>Register - Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            font-family: Segoe UI, Arial;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        input.error {
+            border-color: #f44336;
+        }
+
+        .error-text {
+            color: #f44336;
+            font-size: 13px;
+            margin-top: 3px;
+            display: none;
+        }
+
+        .error-text.show {
+            display: block;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        .msg {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .msg.show {
+            display: block;
+        }
+
+        .msg.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .msg.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .link-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link-section a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 5px;
+            background: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: #f44336;
+            transition: all 0.3s;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Register Akun Baru</h2>
-    <form id="registerForm">
-      <div class="form-group">
-        <label for="name">Nama Lengkap</label>
-        <input id="name" type="text" placeholder="Nama lengkap Anda" />
-        <div class="error-text"></div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="email@domain.com" />
-        <div class="error-text"></div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Min. 6 karakter dengan angka/simbol" />
-        <div class="password-strength"><div class="password-strength-bar"></div></div>
-        <div class="error-text"></div>
-      </div>
-      <div class="form-group">
-        <label for="password2">Konfirmasi Password</label>
-        <input id="password2" type="password" placeholder="Ulangi password" />
-        <div class="error-text"></div>
-      </div>
-      <button class="btn" type="submit">Register</button>
-    </form>
-    <div class="msg" id="msg"></div>
-    <div class="link-section">Sudah punya akun? <a href="login.html">Login di sini</a></div>
-  </div>
-  <script>
-    const form = document.getElementById('registerForm');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const password2Input = document.getElementById('password2');
-    const msg = document.getElementById('msg');
+    <div class="container">
+        <h2>Register Akun Baru</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input id="name" type="text" placeholder="Nama lengkap Anda" />
+                <div class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="email@domain.com" />
+                <div class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Min. 6 karakter dengan angka/simbol" />
+                <div class="password-strength">
+                    <div class="password-strength-bar"></div>
+                </div>
+                <div class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <label for="password2">Konfirmasi Password</label>
+                <input id="password2" type="password" placeholder="Ulangi password" />
+                <div class="error-text"></div>
+            </div>
+            <button class="btn" type="submit">Register</button>
+        </form>
+        <div class="msg" id="msg"></div>
+        <div class="link-section">Sudah punya akun? <a href="login.html">Login di sini</a></div>
+    </div>
+    <script>
+        const form = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const password2Input = document.getElementById('password2');
+        const msg = document.getElementById('msg');
 
-    function validateEmail(email) { const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return regex.test(email); }
-    function validatePassword(password) { if (password.length < 6) return 'Password minimal 6 karakter'; if (!/[0-9!@#$%^&*]/.test(password)) return 'Password harus berisi angka atau simbol'; return null; }
-    function updatePasswordStrength(password) { const bar = document.querySelector('.password-strength-bar'); let strength = 0; if (password.length >= 6) strength += 25; if (/[0-9]/.test(password)) strength += 25; if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25; if (/[!@#$%^&*]/.test(password)) strength += 25; bar.style.width = strength + '%'; bar.style.background = strength <= 25 ? '#f44336' : strength <= 50 ? '#ff9800' : strength <= 75 ? '#ffc107' : '#4CAF50'; }
+        function validateEmail(email) { const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return regex.test(email); }
+        function validatePassword(password) { if (password.length < 6) return 'Password minimal 6 karakter'; if (!/[0-9!@#$%^&*]/.test(password)) return 'Password harus berisi angka atau simbol'; return null; }
+        function updatePasswordStrength(password) { const bar = document.querySelector('.password-strength-bar'); let strength = 0; if (password.length >= 6) strength += 25; if (/[0-9]/.test(password)) strength += 25; if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25; if (/[!@#$%^&*]/.test(password)) strength += 25; bar.style.width = strength + '%'; bar.style.background = strength <= 25 ? '#f44336' : strength <= 50 ? '#ff9800' : strength <= 75 ? '#ffc107' : '#4CAF50'; }
 
-    nameInput.addEventListener('blur', () => { const err = nameInput.parentElement.querySelector('.error-text'); if (!nameInput.value.trim() || nameInput.value.trim().length < 2) { nameInput.classList.add('error'); err.textContent = 'Nama minimal 2 karakter'; err.classList.add('show'); } else { nameInput.classList.remove('error'); err.classList.remove('show'); } });
-    emailInput.addEventListener('blur', () => { const err = emailInput.parentElement.querySelector('.error-text'); if (!validateEmail(emailInput.value)) { emailInput.classList.add('error'); err.textContent = 'Email tidak valid'; err.classList.add('show'); } else { emailInput.classList.remove('error'); err.classList.remove('show'); } });
-    passwordInput.addEventListener('input', () => { updatePasswordStrength(passwordInput.value); });
-    passwordInput.addEventListener('blur', () => { const err = passwordInput.parentElement.querySelector('.error-text'); const errMsg = validatePassword(passwordInput.value); if (errMsg) { passwordInput.classList.add('error'); err.textContent = errMsg; err.classList.add('show'); } else { passwordInput.classList.remove('error'); err.classList.remove('show'); } });
-    password2Input.addEventListener('blur', () => { const err = password2Input.parentElement.querySelector('.error-text'); if (passwordInput.value !== password2Input.value) { password2Input.classList.add('error'); err.textContent = 'Password tidak sama'; err.classList.add('show'); } else { password2Input.classList.remove('error'); err.classList.remove('show'); } });
+        nameInput.addEventListener('blur', () => { const err = nameInput.parentElement.querySelector('.error-text'); if (!nameInput.value.trim() || nameInput.value.trim().length < 2) { nameInput.classList.add('error'); err.textContent = 'Nama minimal 2 karakter'; err.classList.add('show'); } else { nameInput.classList.remove('error'); err.classList.remove('show'); } });
+        emailInput.addEventListener('blur', () => { const err = emailInput.parentElement.querySelector('.error-text'); if (!validateEmail(emailInput.value)) { emailInput.classList.add('error'); err.textContent = 'Email tidak valid'; err.classList.add('show'); } else { emailInput.classList.remove('error'); err.classList.remove('show'); } });
+        passwordInput.addEventListener('input', () => { updatePasswordStrength(passwordInput.value); });
+        passwordInput.addEventListener('blur', () => { const err = passwordInput.parentElement.querySelector('.error-text'); const errMsg = validatePassword(passwordInput.value); if (errMsg) { passwordInput.classList.add('error'); err.textContent = errMsg; err.classList.add('show'); } else { passwordInput.classList.remove('error'); err.classList.remove('show'); } });
+        password2Input.addEventListener('blur', () => { const err = password2Input.parentElement.querySelector('.error-text'); if (passwordInput.value !== password2Input.value) { password2Input.classList.add('error'); err.textContent = 'Password tidak sama'; err.classList.add('show'); } else { password2Input.classList.remove('error'); err.classList.remove('show'); } });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.className = 'msg';
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      const password2 = password2Input.value;
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            msg.className = 'msg';
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const password2 = password2Input.value;
 
-      if (!name || name.length < 2) { msg.textContent = 'Nama minimal 2 karakter'; msg.classList.add('error', 'show'); return; }
-      if (!validateEmail(email)) { msg.textContent = 'Email tidak valid'; msg.classList.add('error', 'show'); return; }
-      const passErr = validatePassword(password); if (passErr) { msg.textContent = passErr; msg.classList.add('error', 'show'); return; }
-      if (password !== password2) { msg.textContent = 'Password tidak sama'; msg.classList.add('error', 'show'); return; }
+            if (!name || name.length < 2) { msg.textContent = 'Nama minimal 2 karakter'; msg.classList.add('error', 'show'); return; }
+            if (!validateEmail(email)) { msg.textContent = 'Email tidak valid'; msg.classList.add('error', 'show'); return; }
+            const passErr = validatePassword(password); if (passErr) { msg.textContent = passErr; msg.classList.add('error', 'show'); return; }
+            if (password !== password2) { msg.textContent = 'Password tidak sama'; msg.classList.add('error', 'show'); return; }
 
-      try {
-        const res = await fetch('http://localhost:5000/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, password }) });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Register gagal');
-        msg.className = 'msg success show';
-        msg.textContent = 'Registrasi berhasil — silakan login';
-        setTimeout(() => location.href = 'login.html', 1500);
-      } catch (err) {
-        msg.className = 'msg error show';
-        msg.textContent = err.message;
-      }
-    });
-  </script>
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, password }) });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Register gagal');
+                msg.className = 'msg success show';
+                msg.textContent = 'Registrasi berhasil — silakan login';
+                setTimeout(() => location.href = 'login.html', 1500);
+            } catch (err) {
+                msg.className = 'msg error show';
+                msg.textContent = err.message;
+            }
+        });
+    </script>
 </body>
+
 </html>
