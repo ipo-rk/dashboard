@@ -1,0 +1,18 @@
+[
+  {
+    "id": "p_1765075953285_556",
+    "name": "Cappuccino",
+    "price": 3,
+    "description": "Cappuccino Coffee",
+    "img": "/uploads/1765075953281_m8hpcwtw1.png",
+    "createdAt": "2025-12-07T02:52:33.285Z"
+  },
+  {
+    "id": "p_1765075601448_593",
+    "name": "Americcano",
+    "price": 1,
+    "description": "Americcnno Coffee",
+    "img": "/uploads/1765075601441_94yox1aw6.png",
+    "createdAt": "2025-12-07T02:46:41.448Z"
+  }
+]

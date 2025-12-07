@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Dashboard</title>
+
+    <!-- w3.css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
+            <h1 class="ffs-2">Analytics</h1>
+            <p>View detailed analytics and reports</p>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav>
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
+            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
+            <div class="justify-content-center">
+                <img src="assets/img/logo.png" alt="Avatar"
+                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
+                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
+                <div class="w3-bar-block mx-lg-5 py-5 my-5">
+                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
+                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
+                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
+                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
+                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
+                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <!-- Page Content -->
+        <section>
+            <div class="container text-center">
+                <div class="col-lg-12 p-5 my-5">
+                    <h2 class="ffs-4">📊 Analytics Dashboard</h2>
+                    <p>Comprehensive analytics and performance metrics for your coffee business</p>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Monthly Sales Trend</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="salesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Product Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="productChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Key Metrics</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-md-3">
+                                            <h6>Total Revenue</h6>
+                                            <h3 class="text-success">$12,450</h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>Total Orders</h6>
+                                            <h3 class="text-info">245</h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>Average Order Value</h6>
+                                            <h3 class="text-warning">$50.82</h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>Customer Satisfaction</h6>
+                                            <h3 class="text-primary">4.8/5</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- footer -->
+    <footer>
+        <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
+            <p>&copy; 2024 EnaAuto Coffee Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Script JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

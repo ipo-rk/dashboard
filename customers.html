@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Dashboard</title>
+
+    <!-- w3.css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
+            <h1 class="ffs-2">Customers</h1>
+            <p>Manage and view customer information</p>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav>
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
+            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
+            <div class="justify-content-center">
+                <img src="assets/img/logo.png" alt="Avatar"
+                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
+                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
+                <div class="w3-bar-block mx-lg-5 py-5 my-5">
+                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
+                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
+                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
+                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
+                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
+                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <!-- Page Content -->
+        <section>
+            <div class="container text-center">
+                <div class="col-lg-12 p-5 my-5">
+                    <h2 class="ffs-4">👥 Customer Management</h2>
+                    <p>View and manage all your customers information</p>
+
+                    <div class="table-responsive mt-4">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Total Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#C001</td>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>555-0101</td>
+                                    <td>12</td>
+                                    <td>$450.00</td>
+                                    <td><a href="#" class="btn btn-sm btn-info">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#C002</td>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td>555-0102</td>
+                                    <td>8</td>
+                                    <td>$320.00</td>
+                                    <td><a href="#" class="btn btn-sm btn-info">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#C003</td>
+                                    <td>Mike Johnson</td>
+                                    <td>mike@example.com</td>
+                                    <td>555-0103</td>
+                                    <td>15</td>
+                                    <td>$580.00</td>
+                                    <td><a href="#" class="btn btn-sm btn-info">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#C004</td>
+                                    <td>Sarah Williams</td>
+                                    <td>sarah@example.com</td>
+                                    <td>555-0104</td>
+                                    <td>10</td>
+                                    <td>$420.00</td>
+                                    <td><a href="#" class="btn btn-sm btn-info">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#C005</td>
+                                    <td>Tom Brown</td>
+                                    <td>tom@example.com</td>
+                                    <td>555-0105</td>
+                                    <td>7</td>
+                                    <td>$280.00</td>
+                                    <td><a href="#" class="btn btn-sm btn-info">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- footer -->
+    <footer>
+        <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
+            <p>&copy; 2024 EnaAuto Coffee Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Global scripts -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Dashboard</title>
+
+    <!-- w3.css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
+            <h1 class="ffs-2">Products</h1>
+            <p>Manage and browse all your coffee products</p>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav>
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
+            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
+            <div class="justify-content-center">
+                <img src="assets/img/logo.png" alt="Avatar"
+                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
+                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
+                <div class="w3-bar-block mx-lg-5 py-5 my-5">
+                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
+                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
+                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
+                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
+                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
+                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <!-- Page Content -->
+        <section id="products">
+            <div class="container text-center mb-5">
+                <div class="row mb-5">
+                    <div class="col-lg-12 p-5 my-5">
+                        <h2 class="ffs-4 py-3 my-3">☕ Featured Products</h2>
+                        <p>Explore our top coffee products that are trending this season. From rich espresso blends to
+                            smooth lattes, find your perfect cup of coffee here.</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="mb-0">Product Manager</h4>
+                            <div>
+                                <button id="addProductBtn" class="btn btn-primary">+ Add Product</button>
+                                <button id="exportProductsBtn" class="btn btn-info ml-2"
+                                    title="Export produk ke file JSON">📥 Export</button>
+                                <button id="importProductsBtn" class="btn btn-warning ml-2"
+                                    title="Import produk dari file JSON">📤 Import</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Thumbnail</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <!-- rendered by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Product Modal -->
+                        <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
+                            aria-labelledby="productModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="productModalTitle">Add Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form id="productForm">
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-8">
+                                                    <label for="name">Product Name</label>
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                        required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="price">Price</label>
+                                                    <input type="number" step="0.01" class="form-control" id="price"
+                                                        name="price" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description"
+                                                    rows="3"></textarea>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="productImage">Product Image</label>
+                                                    <input type="file" accept="image/*" class="form-control-file"
+                                                        id="productImage" name="productImage">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Preview</label>
+                                                    <div>
+                                                        <img id="productImagePreview"
+                                                            src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22180%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E"
+                                                            alt="Preview"
+                                                            style="max-width:100%;height:180px;object-fit:cover;border:1px solid #ddd;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- footer -->
+    <footer>
+        <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
+            <p>&copy; 2024 EnaAuto Coffee Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- products manager script -->
+    <script src="assets/js/products.js"></script>
+</body>
+
+</html>
