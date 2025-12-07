@@ -4,6 +4,7 @@
     "name": "Auto Test",
     "email": "tester+1@example.com",
     "password": "$2a$08$njyA0gsfMOUcL1kyu7MYhOEEbikocH3zKqDFeuV4rFuiemdjkh3Wu",
+    "role": "admin",
     "createdAt": "2025-12-07T04:07:28.400Z"
   },
   {
@@ -26,5 +27,37 @@
     "email": "rizaldoricky@gmail.com",
     "password": "$2a$08$7FMS0SvtYS3ZQKDgvk6nJORNb2VKT/Ym2JaaiXotUinA8nMBJlqKu",
     "createdAt": "2025-12-07T04:51:37.315Z"
+  },
+  {
+    "id": "u_1765088155914_681",
+    "name": "Auto Tester",
+    "email": "tester_nonadmin_7409@example.com",
+    "password": "$2a$08$zPLLjWkrNjOOFmPD2VOEL..HNOB1nnlVKMk24kItjpoRthzmvbhSy",
+    "role": "user",
+    "createdAt": "2025-12-07T06:15:55.914Z"
+  },
+  {
+    "id": "u_1765088215520_859",
+    "name": "Auto Tester",
+    "email": "tester_nonadmin_68447@example.com",
+    "password": "$2a$08$VxuJV8/pOBI9d58moobGNeuQeNxHcq0HKFE7tv0rCu3cSdUXpK9ai",
+    "role": "user",
+    "createdAt": "2025-12-07T06:16:55.520Z"
+  },
+  {
+    "id": "u_1765088255889_446",
+    "name": "Auto Tester",
+    "email": "tester_nonadmin_55616@example.com",
+    "password": "$2a$08$2gCzFMWlNmkknreyBhuCWOZMH1Z6YO.FBDsdRwLY7ZfFH33.XqC6a",
+    "role": "user",
+    "createdAt": "2025-12-07T06:17:35.889Z"
+  },
+  {
+    "id": "u_1765089592609_640",
+    "name": "Auto Tester",
+    "email": "tester_nonadmin_86868@example.com",
+    "password": "$2a$08$7FS.f6u3oS3AkiiTHR0F7eSg7UQB/Q06cuUYdf6AmXtnrLPhyFgGy",
+    "role": "user",
+    "createdAt": "2025-12-07T06:39:52.609Z"
   }
 ]

@@ -15,104 +15,115 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
-            <h1 class="ffs-2">Dashboard</h1>
-            <p>Welcome to EnaAuto Coffee Dashboard - Your Coffee Business Management Hub</p>
-        </div>
-    </header>
+    <div class="sidebar">
+        <div class="sidebar-logo">📊 Dashboard</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">💼 Produk</a></li>
+            <li><a href="index.html" class="active">📈 Overview</a></li>
+            <li><a href="products.html">📦 Manager</a></li>
+            <li><a href="customers.html">👥 Pelanggan</a></li>
+            <li><a href="messages.html">💬 Pesan</a></li>
+            <li><a href="analytics.html">📊 Analytics</a></li>
+            <li><a href="settings.html">⚙️ Pengaturan</a></li>
+        </ul>
+    </div>
 
-    <!-- Nav -->
-    <nav>
-        <!-- Sidebar -->
-        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
-            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
-            <div class="justify-content-center">
-                <img src="assets/img/logo.png" alt="Avatar"
-                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
-                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
-                <div class="w3-bar-block mx-lg-5 py-5 my-5">
-                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
-                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
-                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
-                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
-                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
-                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <div>
+                    <h2 id="pageTitle" style="margin: 0; color: #333;">Overview</h2>
+                    <div class="breadcrumb">
+                        <a href="index.html">Dashboard</a> / <span id="breadcrumb">Overview</span>
+                    </div>
                 </div>
             </div>
-
-
-        </div>
-    </nav>
-
-
-    <!-- Main -->
-    <main>
-        <!-- Page Content -->
-        <section>
-            <div class="container text-center">
-                <div class="row justify-content-between align-content-center d-flex">
-
-                    <div class="col-lg-8 p-5 my-5">
-                        <h2 class="ffs-4">📊 Dashboard Overview</h2>
-                        <p>Welcome to EnaAuto Coffee Dashboard. Monitor your key metrics, sales performance, and
-                            inventory in real-time. Stay updated with the latest notifications and analytics for your
-                            coffee business.</p>
-
-                        <div class="col">
-                            <canvas id="myChart" width="400" height="200"></canvas>
-
-                        </div>
-                    </div>
-
-                    <div id="card" class="col-lg-4 p-0 my-5 align-content-between d-flex flex-column">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">📦 Total Products</h5>
-                                <h3 id="totalProducts" class="text-primary">0</h3>
-                                <p class="card-text small">Products in inventory</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">💰 Total Value</h5>
-                                <h3 id="totalValue" class="text-success">$0.00</h3>
-                                <p class="card-text small">Inventory value</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <h5>⚡ Quick Add Product</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="quickAddForm">
-                                    <div class="form-group mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="quickName"
-                                            placeholder="Name" required>
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <input type="number" step="0.01" class="form-control form-control-sm"
-                                            id="quickPrice" placeholder="Price" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block">Add</button>
-                                </form>
-                                <hr />
-                                <p class="text-center"><small><a href="products.html">Go to Product Manager
-                                            →</a></small></p>
-                            </div>
-                        </div>
-                    </div>
-
-
+            <div class="header-right">
+                <div class="notification-bell">🔔
+                    <div class="notification-badge" id="notificationBadge">0</div>
                 </div>
-        </section>
+                <div class="user-badge">
+                    <span>👤</span>
+                    <div>
+                        <div id="userName" style="font-weight: 600; font-size: 13px;">User</div>
+                        <div id="userRole" style="font-size: 11px; color: #999;">user</div>
+                    </div>
+                    <span class="role-badge" id="roleBadge">USER</span>
+                </div>
+                <button class="btn-logout" id="logoutBtn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
 
-    </main>
+
+        <!-- Main -->
+        <main>
+            <!-- Page Content -->
+            <section>
+                <div class="container text-center">
+                    <div class="row justify-content-between align-content-center d-flex">
+
+                        <div class="col-lg-8 p-5 my-5">
+                            <h2 class="ffs-4">📊 Dashboard Overview</h2>
+                            <p>Welcome to EnaAuto Coffee Dashboard. Monitor your key metrics, sales performance, and
+                                inventory in real-time. Stay updated with the latest notifications and analytics for
+                                your
+                                coffee business.</p>
+
+                            <div class="col">
+                                <canvas id="myChart" width="400" height="200"></canvas>
+
+                            </div>
+                        </div>
+
+                        <div id="card" class="col-lg-4 p-0 my-5 align-content-between d-flex flex-column">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">📦 Total Products</h5>
+                                    <h3 id="totalProducts" class="text-primary">0</h3>
+                                    <p class="card-text small">Products in inventory</p>
+                                </div>
+                            </div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">💰 Total Value</h5>
+                                    <h3 id="totalValue" class="text-success">$0.00</h3>
+                                    <p class="card-text small">Inventory value</p>
+                                </div>
+                            </div>
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h5>⚡ Quick Add Product</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="quickAddForm">
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control form-control-sm" id="quickName"
+                                                placeholder="Name" required>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="number" step="0.01" class="form-control form-control-sm"
+                                                id="quickPrice" placeholder="Price" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block">Add</button>
+                                    </form>
+                                    <hr />
+                                    <p class="text-center"><small><a href="products.html">Go to Product Manager
+                                                →</a></small></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+            </section>
+
+        </main>
+    </div>
     <!-- footer -->
     <footer>
         <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
@@ -133,6 +144,8 @@
 
 
 
+    <script src="assets/js/app-core.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- bootstrap js -->

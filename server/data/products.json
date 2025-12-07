@@ -1,5 +1,13 @@
 [
   {
+    "id": "p_1765088256171_783",
+    "name": "UploadTest User 7783",
+    "price": 4.99,
+    "description": "Uploaded by user test",
+    "img": "/uploads/1765088256122_dce51yrup.png",
+    "createdAt": "2025-12-07T06:17:36.171Z"
+  },
+  {
     "id": "p_1765081764686_293",
     "name": "Coffee Beans",
     "price": 50000,

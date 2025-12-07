@@ -411,3 +411,16 @@ Latest Version: 2.0 (STABLE)
 Status: ✅ PRODUCTION READY
 
 ═══════════════════════════════════════════════════════════════════════════════
+
+RECENT UPDATES (2025-12-07)
+──────────────────────────
+✨ Added role-based access control on server for product modifications (POST/PUT/DELETE restricted to admin).
+✨ Added `app-core.js` to centralize product loading and helpers.
+✨ Externalized dashboard CSS/JS and refactored front-end to use `appCore.loadProducts()`.
+✨ Front-end now hides Create/Edit/Delete UI for non-admin users and shows view-only state.
+✨ Added automated PowerShell tests:
+   - `scripts/test-api-crud.ps1` (CRUD with auth)
+   - `scripts/test-api-upload-permission.ps1` (multipart upload + role checks)
+✨ Updated server behavior: `server/server.js` enforces admin role; test admin account `tester+1@example.com` set to role `admin`.
+
+Please see `COMPLETION_REPORT.txt` and `tests/` for details and outputs.

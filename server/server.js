@@ -117,8 +117,8 @@ app.get('/api/products/:id', (req, res) => {
     res.json(product);
 });
 
-// API: POST produk baru (dengan atau tanpa gambar) - membutuhkan autentikasi
-app.post('/api/products', authenticateToken, upload.single('image'), (req, res) => {
+// API: POST produk baru (dengan atau tanpa gambar) - membutuhkan autentikasi dan admin
+app.post('/api/products', authenticateToken, requireAdmin, upload.single('image'), (req, res) => {
     const { name, price, description } = req.body;
     if (!name || !price) {
         return res.status(400).json({ error: 'Name dan price harus diisi' });
@@ -211,7 +211,7 @@ app.post('/api/auth/login', (req, res) => {
         return res.status(401).json({ error: 'Email atau password salah' });
     }
 
-    const payload = { id: user.id, email: user.email };
+    const payload = { id: user.id, email: user.email, role: user.role || 'user' };
     const token = jwt.sign(payload, process.env.JWT_SECRET || 'dev_secret_change', { expiresIn: '12h' });
 
     const safeUser = Object.assign({}, user);
@@ -219,8 +219,16 @@ app.post('/api/auth/login', (req, res) => {
     res.json({ token, user: safeUser });
 });
 
-// API: PUT update produk - membutuhkan autentikasi
-app.put('/api/products/:id', authenticateToken, upload.single('image'), (req, res) => {
+// Middleware: require admin role
+function requireAdmin(req, res, next) {
+    if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json({ error: 'Akses ditolak: hanya admin' });
+    }
+    next();
+}
+
+// API: PUT update produk - membutuhkan autentikasi dan role admin
+app.put('/api/products/:id', authenticateToken, requireAdmin, upload.single('image'), (req, res) => {
     const { name, price, description } = req.body;
     const products = loadProducts();
     const idx = products.findIndex(p => p.id === req.params.id);
@@ -249,8 +257,8 @@ app.put('/api/products/:id', authenticateToken, upload.single('image'), (req, re
     res.json(products[idx]);
 });
 
-// API: DELETE produk - membutuhkan autentikasi
-app.delete('/api/products/:id', authenticateToken, (req, res) => {
+// API: DELETE produk - membutuhkan autentikasi dan role admin
+app.delete('/api/products/:id', authenticateToken, requireAdmin, (req, res) => {
     const products = loadProducts();
     const idx = products.findIndex(p => p.id === req.params.id);
 

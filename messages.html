@@ -13,108 +13,124 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
-            <h1 class="ffs-2">Messages</h1>
-            <p>View and manage all your messages</p>
-        </div>
-    </header>
+    <div class="sidebar">
+        <div class="sidebar-logo">📊 Dashboard</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">💼 Produk</a></li>
+            <li><a href="index.html">📈 Overview</a></li>
+            <li><a href="products.html">📦 Manager</a></li>
+            <li><a href="customers.html">👥 Pelanggan</a></li>
+            <li><a href="messages.html" class="active">💬 Pesan</a></li>
+            <li><a href="analytics.html">📊 Analytics</a></li>
+            <li><a href="settings.html">⚙️ Pengaturan</a></li>
+        </ul>
+    </div>
 
-    <!-- Nav -->
-    <nav>
-        <!-- Sidebar -->
-        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
-            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
-            <div class="justify-content-center">
-                <img src="assets/img/logo.png" alt="Avatar"
-                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
-                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
-                <div class="w3-bar-block mx-lg-5 py-5 my-5">
-                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
-                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
-                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
-                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
-                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
-                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <div>
+                    <h2 id="pageTitle" style="margin: 0; color: #333;">Messages</h2>
+                    <div class="breadcrumb">
+                        <a href="index.html">Dashboard</a> / <span id="breadcrumb">Messages</span>
+                    </div>
                 </div>
             </div>
+            <div class="header-right">
+                <div class="notification-bell">🔔
+                    <div class="notification-badge" id="notificationBadge">0</div>
+                </div>
+                <div class="user-badge">
+                    <span>👤</span>
+                    <div>
+                        <div id="userName" style="font-weight: 600; font-size: 13px;">User</div>
+                        <div id="userRole" style="font-size: 11px; color: #999;">user</div>
+                    </div>
+                    <span class="role-badge" id="roleBadge">USER</span>
+                </div>
+                <button class="btn-logout" id="logoutBtn" onclick="handleLogout()">Logout</button>
+            </div>
         </div>
-    </nav>
 
-    <!-- Main -->
-    <main>
-        <!-- Page Content -->
-        <section>
-            <div class="container text-center">
-                <div class="col-lg-12 p-5 my-5">
-                    <h2 class="ffs-4">💬 Messages</h2>
-                    <p>Read and reply to customer messages</p>
+        <!-- Main -->
+        <main>
+            <!-- Page Content -->
+            <section>
+                <div class="container text-center">
+                    <div class="col-lg-12 p-5 my-5">
+                        <h2 class="ffs-4">💬 Messages</h2>
+                        <p>Read and reply to customer messages</p>
 
-                    <div class="row mt-4">
-                        <div class="col-lg-8 offset-lg-2">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <strong>John Doe</strong> - <small class="text-muted">2 hours ago</small>
+                        <div class="row mt-4">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <strong>John Doe</strong> - <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Hi! I would like to place an order for 10 bags of your
+                                            Espresso
+                                            Blend. Can you provide a bulk discount?</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Reply</button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text">Hi! I would like to place an order for 10 bags of your Espresso
-                                        Blend. Can you provide a bulk discount?</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Reply</button>
-                                </div>
-                            </div>
 
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <strong>Jane Smith</strong> - <small class="text-muted">4 hours ago</small>
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <strong>Jane Smith</strong> - <small class="text-muted">4 hours ago</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Your Latte Classic is amazing! I've already recommended it
+                                            to
+                                            my friends. Keep up the great work!</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Reply</button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text">Your Latte Classic is amazing! I've already recommended it to
-                                        my friends. Keep up the great work!</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Reply</button>
-                                </div>
-                            </div>
 
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <strong>Mike Johnson</strong> - <small class="text-muted">6 hours ago</small>
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <strong>Mike Johnson</strong> - <small class="text-muted">6 hours ago</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">I have a question about the shipping cost for my order
+                                            #O1234.
+                                            Can you help?</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Reply</button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text">I have a question about the shipping cost for my order #O1234.
-                                        Can you help?</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Reply</button>
-                                </div>
-                            </div>
 
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <strong>Sarah Williams</strong> - <small class="text-muted">Yesterday</small>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">When will the new flavor be available? I'm very excited to try
-                                        it!</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Reply</button>
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <strong>Sarah Williams</strong> - <small class="text-muted">Yesterday</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">When will the new flavor be available? I'm very excited to
+                                            try
+                                            it!</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Reply</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
+        </main>
+    </div>
     <!-- footer -->
     <footer>
         <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
@@ -122,6 +138,8 @@
         </div>
     </footer>
 
+    <script src="assets/js/app-core.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- bootstrap js -->

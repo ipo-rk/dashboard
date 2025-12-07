@@ -1,0 +1,31 @@
+﻿{
+    "server":  "http://localhost:5000",
+    "timestamp":  "2025-12-07T15:39:52.4253951+09:00",
+    "admin":  {
+                  "user":  {
+                               "id":  "u_1765080448400_401",
+                               "name":  "Auto Test",
+                               "email":  "tester+1@example.com",
+                               "createdAt":  "2025-12-07T04:07:28.400Z"
+                           },
+                  "ok":  true
+              },
+    "nonadmin":  {
+                     "user":  {
+                                  "id":  "u_1765089592609_640",
+                                  "name":  "Auto Tester",
+                                  "email":  "tester_nonadmin_86868@example.com",
+                                  "role":  "user",
+                                  "createdAt":  "2025-12-07T06:39:52.609Z"
+                              },
+                     "ok":  true
+                 },
+    "upload_admin":  {
+                         "error":  "HTTP Forbidden: {\"error\":\"Akses ditolak: hanya admin\"}",
+                         "ok":  false
+                     },
+    "upload_user":  {
+                        "error":  "HTTP Forbidden: {\"error\":\"Akses ditolak: hanya admin\"}",
+                        "ok":  false
+                    }
+}

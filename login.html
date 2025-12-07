@@ -5,31 +5,7 @@
     <meta charset="utf-8" />
     <title>Login - Dashboard</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <style>
-        body {
-            font-family: Segoe UI, Arial;
-            margin: 40px
-        }
-
-        form {
-            max-width: 420px
-        }
-
-        input {
-            display: block;
-            margin: 8px 0;
-            padding: 8px;
-            width: 100%
-        }
-
-        .btn {
-            padding: 10px 14px
-        }
-
-        .msg {
-            margin-top: 10px
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 
 <body>
@@ -44,6 +20,7 @@
     <div class="msg" id="msg"></div>
     <p>Belum punya akun? <a href="register.html">Register</a></p>
 
+    <script src="assets/js/app-core.js"></script>
     <script>
         const form = document.getElementById('loginForm');
         const msg = document.getElementById('msg');

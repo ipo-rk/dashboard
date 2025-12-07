@@ -12,36 +12,14 @@ const MESSAGE_REPLIES_KEY = 'messageReplies';
 let useServer = false;
 
 // ====== UTILITY FUNCTIONS ======
+// Use shared helpers from app-core when available
 async function checkServer() {
+    if (window.checkServer) return window.checkServer();
     try {
         const res = await fetch(`${SERVER_URL}/health`, { method: 'GET' });
         return res.ok;
     } catch (e) {
         return false;
-    }
-}
-
-async function loadProducts() {
-    if (useServer) {
-        try {
-            const res = await fetch(`${SERVER_URL}/products`);
-            if (res.ok) {
-                const products = await res.json();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-                return products;
-            }
-        } catch (e) {
-            console.warn('⚠ Server fetch failed, using localStorage');
-            useServer = false;
-        }
-    }
-
-    try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-    } catch (e) {
-        console.error('Error parsing localStorage:', e);
-        return [];
     }
 }
 
@@ -64,7 +42,10 @@ async function initDashboard() {
     if (useServer) console.log('✓ Server detected');
     else console.log('⚠ Using localStorage');
 
-    updateProductWidget();
+    // load products via shared loader
+    try {
+        updateProductWidget();
+    } catch (e) { console.warn(e); }
     initChart();
     setupQuickAddForm();
 }
@@ -132,6 +113,15 @@ function initChart() {
 function setupQuickAddForm() {
     const form = document.getElementById('quickAddForm');
     if (!form) return;
+
+    // hide quick add for non-admin users
+    try {
+        const u = JSON.parse(localStorage.getItem('auth_user') || '{}');
+        if (!u || u.role !== 'admin') {
+            form.style.display = 'none';
+            return;
+        }
+    } catch (e) { /* ignore */ }
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -458,4 +448,17 @@ document.addEventListener('DOMContentLoaded', async function () {
 // Export functions globally
 window.updateProductWidget = updateProductWidget;
 window.checkServer = checkServer;
+// Provide a local wrapper so older code can call `loadProducts()`.
+async function loadProducts() {
+    if (window.appCore && window.appCore.loadProducts) return window.appCore.loadProducts();
+    // fallback: try to read localStorage
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        return JSON.parse(raw);
+    } catch (e) {
+        return [];
+    }
+}
+
 window.loadProducts = loadProducts;

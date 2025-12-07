@@ -13,146 +13,158 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="w3-container w3-center ffs-1" style="padding:40px 16px;">
-            <h1 class="ffs-2">Settings</h1>
-            <p>Manage your account and application settings</p>
-        </div>
-    </header>
+    <div class="sidebar">
+        <div class="sidebar-logo">📊 Dashboard</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">💼 Produk</a></li>
+            <li><a href="index.html">📈 Overview</a></li>
+            <li><a href="products.html">📦 Manager</a></li>
+            <li><a href="customers.html">👥 Pelanggan</a></li>
+            <li><a href="messages.html">💬 Pesan</a></li>
+            <li><a href="analytics.html">📊 Analytics</a></li>
+            <li><a href="settings.html" class="active">⚙️ Pengaturan</a></li>
+        </ul>
+    </div>
 
-    <!-- Nav -->
-    <nav>
-        <!-- Sidebar -->
-        <div class="w3-sidebar w3-light-grey w3-bar-block ffs-3 py-5"
-            style="width:25%; position: fixed; top: 0; left: 0; height: 100vh;">
-            <div class="justify-content-center">
-                <img src="assets/img/logo.png" alt="Avatar"
-                    class="w3-circle w3-margin-top mx-auto d-block w-25 border-light" style="width:50%;">
-                <h1 class="ffs-4 text-center fw-bold">Devp Rick11</h1>
-                <div class="w3-bar-block mx-lg-5 py-5 my-5">
-                    <a href="index.html" class="w3-bar-item w3-button">Overview</a>
-                    <a href="products.html" class="w3-bar-item w3-button">Products</a>
-                    <a href="customers.html" class="w3-bar-item w3-button">Customers</a>
-                    <a href="messages.html" class="w3-bar-item w3-button">Messages</a>
-                    <a href="analytics.html" class="w3-bar-item w3-button">Analytics</a>
-                    <a href="settings.html" class="w3-bar-item w3-button">Settings</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main -->
-    <main>
-        <!-- Page Content -->
-        <section>
-            <div class="container">
-                <div class="col-lg-8 offset-lg-2 p-5 my-5">
-                    <h2 class="ffs-4 mb-4">⚙️ Settings</h2>
-
-                    <!-- Account Settings -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5>👤 Account Settings</h5>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="fullname">Full Name</label>
-                                    <input type="text" class="form-control" id="fullname"
-                                        placeholder="Enter your full name" value="Dev Rick11">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
-                                        value="devrick@example.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone"
-                                        value="+1-555-0123">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Password Settings -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5>🔐 Password & Security</h5>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="current_password">Current Password</label>
-                                    <input type="password" class="form-control" id="current_password"
-                                        placeholder="Enter current password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="new_password">New Password</label>
-                                    <input type="password" class="form-control" id="new_password"
-                                        placeholder="Enter new password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirm_password">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="confirm_password"
-                                        placeholder="Confirm new password">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update Password</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Notification Settings -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5>🔔 Notification Settings</h5>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="emailNotif" checked>
-                                    <label class="custom-control-label" for="emailNotif">
-                                        Receive email notifications for new orders
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="smsNotif" checked>
-                                    <label class="custom-control-label" for="smsNotif">
-                                        Receive SMS notifications for important updates
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="newsNotif">
-                                    <label class="custom-control-label" for="newsNotif">
-                                        Subscribe to newsletter
-                                    </label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save Preferences</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Danger Zone -->
-                    <div class="card border-danger">
-                        <div class="card-header bg-danger text-white">
-                            <h5>⚠️ Danger Zone</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>Once you delete your account, there is no going back. Please be certain.</p>
-                            <button class="btn btn-danger">Delete Account</button>
-                        </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-left">
+                <div>
+                    <h2 id="pageTitle" style="margin: 0; color: #333;">Pengaturan</h2>
+                    <div class="breadcrumb">
+                        <a href="index.html">Dashboard</a> / <span id="breadcrumb">Settings</span>
                     </div>
                 </div>
             </div>
-        </section>
+            <div class="header-right">
+                <div class="notification-bell">🔔
+                    <div class="notification-badge" id="notificationBadge">0</div>
+                </div>
+                <div class="user-badge">
+                    <span>👤</span>
+                    <div>
+                        <div id="userName" style="font-weight: 600; font-size: 13px;">User</div>
+                        <div id="userRole" style="font-size: 11px; color: #999;">user</div>
+                    </div>
+                    <span class="role-badge" id="roleBadge">USER</span>
+                </div>
+                <button class="btn-logout" id="logoutBtn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
 
-    </main>
+        <!-- Main -->
+        <main>
+            <!-- Page Content -->
+            <section>
+                <div class="container">
+                    <div class="col-lg-8 offset-lg-2 p-5 my-5">
+                        <h2 class="ffs-4 mb-4">⚙️ Settings</h2>
+
+                        <!-- Account Settings -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>👤 Account Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="fullname">Full Name</label>
+                                        <input type="text" class="form-control" id="fullname"
+                                            placeholder="Enter your full name" value="Dev Rick11">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" class="form-control" id="email"
+                                            placeholder="Enter your email" value="devrick@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone"
+                                            value="+1-555-0123">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Password Settings -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>🔐 Password & Security</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="current_password">Current Password</label>
+                                        <input type="password" class="form-control" id="current_password"
+                                            placeholder="Enter current password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new_password">New Password</label>
+                                        <input type="password" class="form-control" id="new_password"
+                                            placeholder="Enter new password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm_password">Confirm New Password</label>
+                                        <input type="password" class="form-control" id="confirm_password"
+                                            placeholder="Confirm new password">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update Password</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>🔔 Notification Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="emailNotif" checked>
+                                        <label class="custom-control-label" for="emailNotif">
+                                            Receive email notifications for new orders
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="smsNotif" checked>
+                                        <label class="custom-control-label" for="smsNotif">
+                                            Receive SMS notifications for important updates
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="newsNotif">
+                                        <label class="custom-control-label" for="newsNotif">
+                                            Subscribe to newsletter
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Preferences</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Danger Zone -->
+                        <div class="card border-danger">
+                            <div class="card-header bg-danger text-white">
+                                <h5>⚠️ Danger Zone</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Once you delete your account, there is no going back. Please be certain.</p>
+                                <button class="btn btn-danger">Delete Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
     <!-- footer -->
     <footer>
         <div class="w3-container w3-center ffs-1" style="padding:20px 16px;">
@@ -160,6 +172,8 @@
         </div>
     </footer>
 
+    <script src="assets/js/app-core.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- bootstrap js -->

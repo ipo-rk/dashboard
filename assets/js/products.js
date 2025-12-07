@@ -1,9 +1,7 @@
 // products.js — hybrid CRUD (Server API with localStorage fallback)
 // Data model: {id, name, price, description, img}
 
-// Global placeholder constants for use in HTML onerror attributes
-window.PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22180%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E';
-window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2260%22%3E%3Crect fill=%22%23e0e0e0%22 width=%2280%22 height=%2260%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2212%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo img%3C/text%3E%3C/svg%3E';
+// Placeholders are defined centrally in `assets/js/script.js` to avoid duplication across modules.
 
 (function () {
     const STORAGE_KEY = 'ena_products_v1';
@@ -18,6 +16,8 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
     const productImagePreview = document.getElementById('productImagePreview');
     let editingId = null;
     let useServer = false; // Will be detected on init
+    const currentUser = JSON.parse(localStorage.getItem('auth_user') || '{}');
+    const isAdmin = !!(currentUser && currentUser.role === 'admin');
 
     // Convert relative upload path to full server URL
     function getImageUrl(imgPath) {
@@ -44,8 +44,16 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
         }
     }
 
-    // Load products from server or localStorage
+    // Load products from centralized appCore if available, otherwise fall back
     async function loadProducts() {
+        try {
+            if (window.appCore && window.appCore.loadProducts) {
+                return await window.appCore.loadProducts();
+            }
+        } catch (e) {
+            console.warn('appCore.loadProducts failed, falling back', e);
+        }
+
         if (useServer) {
             try {
                 const res = await fetch(`${SERVER_URL}/products`);
@@ -79,14 +87,12 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
         }
     }
 
-    // Save products to server or localStorage
+    // Save products (use appCore if present)
     async function saveProducts(products) {
-        if (useServer) {
-            // If using server, just cache locally
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-        } else {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+        if (window.appCore && window.appCore.saveProducts) {
+            try { return window.appCore.saveProducts(products); } catch (e) { /* ignore */ }
         }
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); } catch (e) { console.error(e); }
     }
 
     function genId() {
@@ -97,23 +103,25 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
         const products = loadProducts();
         Promise.resolve(products).then(prods => {
             tableBody.innerHTML = '';
-            prods.forEach(p => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-          <td><img src="${getImageUrl(p.img)}" class="product-img" style="height:60px;width:80px;object-fit:cover;" onerror="this.onerror=null;this.src=window.PLACEHOLDER_THUMBNAIL"/></td>
-          <td>${escapeHtml(p.name)}</td>
-          <td>$${Number(p.price).toFixed(2)}</td>
-          <td>${escapeHtml(p.description || '')}</td>
-          <td>
-            <button class="btn btn-sm btn-info btn-edit" data-id="${p.id}">Edit</button>
-            <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}">Delete</button>
-          </td>
-        `;
-                tableBody.appendChild(tr);
-            });
-            // attach listeners
-            document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', onEdit));
-            document.querySelectorAll('.btn-delete').forEach(b => b.addEventListener('click', onDelete));
+                        prods.forEach(p => {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                    <td><img src="${getImageUrl(p.img)}" class="product-img" style="height:60px;width:80px;object-fit:cover;" onerror="this.onerror=null;this.src=window.PLACEHOLDER_THUMBNAIL"/></td>
+                    <td>${escapeHtml(p.name)}</td>
+                    <td>$${Number(p.price).toFixed(2)}</td>
+                    <td>${escapeHtml(p.description || '')}</td>
+                    <td>
+                        ${isAdmin ? `<button class="btn btn-sm btn-info btn-edit" data-id="${p.id}">Edit</button>
+                        <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}">Delete</button>` : `<span style="color:#999; font-size:13px;">👁️ Tampilan saja</span>`}
+                    </td>
+                `;
+                                tableBody.appendChild(tr);
+                        });
+                        // attach listeners
+                        if (isAdmin) {
+                                document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', onEdit));
+                                document.querySelectorAll('.btn-delete').forEach(b => b.addEventListener('click', onDelete));
+                        }
         });
     }
 
@@ -249,10 +257,6 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
         reader.readAsDataURL(f);
     }
 
-    function escapeHtml(s) {
-        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
     // Export products as JSON file
     function exportProducts() {
         const products = loadProducts();
@@ -307,13 +311,21 @@ window.PLACEHOLDER_THUMBNAIL = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3
             console.log('⚠ Server unavailable, using localStorage');
         }
 
+        // Hide add button if user is not admin
+        if (addBtn && !isAdmin) {
+            addBtn.style.display = 'none';
+        }
+
         render();
-        addBtn.addEventListener('click', () => {
-            editingId = null;
-            productModalTitle.textContent = 'Add Product';
-            resetForm();
-            $('#productModal').modal('show');
-        });
+        if (addBtn) {
+            addBtn.addEventListener('click', () => {
+                if (!isAdmin) { alert('Akses ditolak: hanya admin'); return; }
+                editingId = null;
+                productModalTitle.textContent = 'Add Product';
+                resetForm();
+                $('#productModal').modal('show');
+            });
+        }
         productForm.addEventListener('submit', onFormSubmit);
         productImageInput.addEventListener('change', onImageChange);
 
