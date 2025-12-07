@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+server/node_modules/
+
+# Uploads and runtime artifacts
+server/uploads/
+uploads/
+
+# Environment
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS files
+.DS_Store
+
+# Build / output
+/dist
+/build
+
+# Editor
+.vscode/
+.idea/
+
+# Tests artifacts (keep tests scripts, but ignore generated outputs)
+tests/*.json
