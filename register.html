@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Register - Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            font-family: Segoe UI, Arial;
+            margin: 40px
+        }
+
+        form {
+            max-width: 420px
+        }
+
+        input {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            width: 100%
+        }
+
+        .btn {
+            padding: 10px 14px
+        }
+
+        .msg {
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Register</h2>
+    <form id="registerForm">
+        <label>Name</label>
+        <input id="name" type="text" placeholder="Nama lengkap" />
+        <label>Email</label>
+        <input id="email" type="email" placeholder="email@domain.com" required />
+        <label>Password</label>
+        <input id="password" type="password" placeholder="Password" required />
+        <label>Confirm Password</label>
+        <input id="password2" type="password" placeholder="Ulangi password" required />
+        <button class="btn" type="submit">Register</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <p>Sudah punya akun? <a href="login.html">Login</a></p>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const msg = document.getElementById('msg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            msg.textContent = '';
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const password2 = document.getElementById('password2').value;
+
+            if (!email || !password) { msg.textContent = 'Email dan password harus diisi'; return; }
+            if (password !== password2) { msg.textContent = 'Password tidak sama'; return; }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Register gagal');
+                msg.style.color = 'green';
+                msg.textContent = 'Registrasi berhasil — silakan login';
+                setTimeout(() => location.href = 'login.html', 1200);
+            } catch (err) {
+                msg.style.color = 'red';
+                msg.textContent = err.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

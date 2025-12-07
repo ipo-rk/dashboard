@@ -1,0 +1,23 @@
+[
+  {
+    "id": "u_1765080448400_401",
+    "name": "Auto Test",
+    "email": "tester+1@example.com",
+    "password": "$2a$08$njyA0gsfMOUcL1kyu7MYhOEEbikocH3zKqDFeuV4rFuiemdjkh3Wu",
+    "createdAt": "2025-12-07T04:07:28.400Z"
+  },
+  {
+    "id": "u_1765081712213_487",
+    "name": "Test User",
+    "email": "newtest@example.com",
+    "password": "$2a$08$DfaII6dO/N9IVN1EA/b.mOkl7R/CIlFYMFEQGLZYfETG7TcRdz05e",
+    "createdAt": "2025-12-07T04:28:32.213Z"
+  },
+  {
+    "id": "u_1765081742845_181",
+    "name": "Fresh Test",
+    "email": "fresh@example.com",
+    "password": "$2a$08$.u7Qwsb3uluxg1WFKnKsneQUo6AiYoPmfBJ6ZCNXQLRCqmbp.uYGm",
+    "createdAt": "2025-12-07T04:29:02.845Z"
+  }
+]

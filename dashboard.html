@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard - Produk</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Segoe UI, Arial; margin: 0; background: #f5f5f5; }
+    .header { background: #333; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { margin: 0; }
+    .header button { padding: 8px 16px; background: #ff6b6b; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+    .user-info { background: white; padding: 15px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .add-product { background: white; padding: 20px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .add-product form { display: grid; gap: 10px; }
+    .add-product input, .add-product textarea, .add-product button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+    .add-product button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+    .add-product button:hover { background: #45a049; }
+    .msg { margin: 10px 0; padding: 10px; border-radius: 4px; }
+    .msg.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .msg.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .product-card { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .product-img { width: 100%; height: 200px; object-fit: cover; background: #f0f0f0; }
+    .product-body { padding: 15px; }
+    .product-body h3 { margin: 0 0 10px 0; }
+    .product-price { color: #4CAF50; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+    .product-desc { color: #666; font-size: 14px; margin-bottom: 15px; max-height: 60px; overflow: hidden; }
+    .product-actions { display: flex; gap: 10px; }
+    .product-actions button { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; }
+    .product-actions .edit { background: #2196F3; color: white; }
+    .product-actions .delete { background: #f44336; color: white; }
+    .product-actions button:hover { opacity: 0.8; }
+    .loading { text-align: center; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Dashboard Produk</h1>
+    <div>
+      <span id="userName" style="margin-right: 20px;"></span>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="user-info">
+      <p>Selamat datang, <strong id="userEmail"></strong></p>
+    </div>
+
+    <div class="add-product">
+      <h3>Tambah Produk Baru</h3>
+      <div id="addMsg"></div>
+      <form id="addProductForm" enctype="multipart/form-data">
+        <input type="text" id="productName" placeholder="Nama Produk" required />
+        <input type="number" id="productPrice" placeholder="Harga" step="0.01" required />
+        <textarea id="productDesc" placeholder="Deskripsi (opsional)" rows="3"></textarea>
+        <input type="file" id="productImage" accept="image/*" />
+        <button type="submit">Tambah Produk</button>
+      </form>
+    </div>
+
+    <div id="productList" class="products">
+      <div class="loading">Memuat produk...</div>
+    </div>
+  </div>
+
+  <script>
+    const apiBase = 'http://localhost:5000/api';
+
+    // Check auth on load
+    window.addEventListener('load', () => {
+      const token = localStorage.getItem('auth_token');
+      const user = localStorage.getItem('auth_user');
+      if (!token || !user) {
+        location.href = 'login.html';
+        return;
+      }
+      const userData = JSON.parse(user);
+      document.getElementById('userName').textContent = userData.name || userData.email;
+      document.getElementById('userEmail').textContent = userData.email;
+      loadProducts();
+      setupForm();
+    });
+
+    function setupForm() {
+      document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('auth_token');
+        const addMsg = document.getElementById('addMsg');
+        addMsg.textContent = '';
+
+        const formData = new FormData();
+        formData.append('name', document.getElementById('productName').value);
+        formData.append('price', document.getElementById('productPrice').value);
+        formData.append('description', document.getElementById('productDesc').value);
+        if (document.getElementById('productImage').files[0]) {
+          formData.append('image', document.getElementById('productImage').files[0]);
+        }
+
+        try {
+          const res = await fetch(`${apiBase}/products`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: formData
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Gagal menambah produk');
+          addMsg.className = 'msg success';
+          addMsg.textContent = 'Produk berhasil ditambahkan!';
+          document.getElementById('addProductForm').reset();
+          loadProducts();
+        } catch (err) {
+          addMsg.className = 'msg error';
+          addMsg.textContent = err.message;
+        }
+      });
+    }
+
+    function loadProducts() {
+      fetch(`${apiBase}/products`)
+        .then(r => r.json())
+        .then(products => {
+          const list = document.getElementById('productList');
+          if (products.length === 0) {
+            list.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Belum ada produk.</p>';
+            return;
+          }
+          list.innerHTML = products.map(p => `
+            <div class="product-card">
+              <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22400%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'" />
+              <div class="product-body">
+                <h3>${p.name}</h3>
+                <div class="product-price">Rp ${parseFloat(p.price).toLocaleString('id-ID', { minimumFractionDigits: 0 })}</div>
+                <p class="product-desc">${p.description || '(Tidak ada deskripsi)'}</p>
+                <div class="product-actions">
+                  <button class="edit" onclick="editProduct('${p.id}')">Edit</button>
+                  <button class="delete" onclick="deleteProduct('${p.id}')">Hapus</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        })
+        .catch(err => {
+          document.getElementById('productList').innerHTML = `<p style="color: red; grid-column: 1 / -1;">Error: ${err.message}</p>`;
+        });
+    }
+
+    function editProduct(id) {
+      alert('Edit produk untuk ID: ' + id + ' (belum diimplementasi)');
+    }
+
+    function deleteProduct(id) {
+      const token = localStorage.getItem('auth_token');
+      if (!confirm('Yakin hapus produk ini?')) return;
+      fetch(`${apiBase}/products/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) throw new Error(data.error);
+          alert('Produk dihapus!');
+          loadProducts();
+        })
+        .catch(err => alert('Error: ' + err.message));
+    }
+
+    function logout() {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_user');
+      location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

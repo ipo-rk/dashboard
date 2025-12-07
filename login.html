@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login - Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body {
+            font-family: Segoe UI, Arial;
+            margin: 40px
+        }
+
+        form {
+            max-width: 420px
+        }
+
+        input {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            width: 100%
+        }
+
+        .btn {
+            padding: 10px 14px
+        }
+
+        .msg {
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="email@domain.com" required />
+        <label>Password</label>
+        <input id="password" type="password" placeholder="Password" required />
+        <button class="btn" type="submit">Login</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <p>Belum punya akun? <a href="register.html">Register</a></p>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const msg = document.getElementById('msg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            msg.textContent = '';
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            if (!email || !password) { msg.textContent = 'Email dan password harus diisi'; return; }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Login gagal');
+                // Simpan token
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('auth_user', JSON.stringify(data.user));
+                msg.style.color = 'green';
+                msg.textContent = 'Login berhasil — mengalihkan...';
+                setTimeout(() => location.href = 'dashboard.html', 800);
+            } catch (err) {
+                msg.style.color = 'red';
+                msg.textContent = err.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
