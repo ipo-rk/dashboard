@@ -144,17 +144,28 @@
             return;
         }
         paginationDiv.style.display = 'flex';
-        let html = '';
+        // Build pagination buttons without inline onclicks
+        paginationDiv.innerHTML = '';
+        function makeBtn(text, page, cls) {
+            const b = document.createElement('button');
+            b.textContent = text;
+            if (cls) b.className = cls;
+            b.addEventListener('click', function () { goToPage(page); });
+            return b;
+        }
+
         if (currentPage > 1) {
-            html += `<button onclick="goToPage(${currentPage - 1})">←  Sebelumnya</button>`;
+            paginationDiv.appendChild(makeBtn('← Sebelumnya', currentPage - 1));
         }
+
         for (let i = 1; i <= pages; i++) {
-            html += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            const btn = makeBtn(String(i), i, i === currentPage ? 'active' : '');
+            paginationDiv.appendChild(btn);
         }
+
         if (currentPage < pages) {
-            html += `<button onclick="goToPage(${currentPage + 1})">Selanjutnya  →</button>`;
+            paginationDiv.appendChild(makeBtn('Selanjutnya →', currentPage + 1));
         }
-        paginationDiv.innerHTML = html;
     }
 
     function goToPage(page) {
@@ -320,9 +331,35 @@
         if (editModal) editModal.addEventListener('click', (e) => {
             if (e.target === editModal) closeEditModal();
         });
-        // delegate add/save buttons
-        const saveBtn = document.querySelector('.btn-save');
-        if (saveBtn) saveBtn.addEventListener('click', () => { if (currentEditId) handleSaveEdit(); });
+        // logout
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+        // also bind any .btn-logout (some pages don't set id)
+        document.querySelectorAll('.btn-logout').forEach(b => b.addEventListener('click', handleLogout));
+
+        // add product button (toggle form)
+        const addBtn = document.querySelector('.btn-add');
+        if (addBtn) addBtn.addEventListener('click', toggleAddForm);
+
+        // add form actions
+        const addFormSave = document.querySelector('#addForm .btn-save');
+        if (addFormSave) addFormSave.addEventListener('click', function (e) { e.preventDefault(); handleAddProduct(); });
+        const addFormCancel = document.querySelector('#addForm .btn-cancel');
+        if (addFormCancel) addFormCancel.addEventListener('click', function (e) { e.preventDefault(); toggleAddForm(); });
+
+        // edit modal actions
+        const editSave = document.querySelector('#editModal .btn-save');
+        if (editSave) editSave.addEventListener('click', function (e) { e.preventDefault(); handleSaveEdit(); });
+        const editCancel = document.querySelector('#editModal .btn-cancel');
+        if (editCancel) editCancel.addEventListener('click', function (e) { e.preventDefault(); closeEditModal(); });
+
+        // filter buttons
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                const type = btn.getAttribute('data-filter') || 'all';
+                applyFilter(btn, type);
+            });
+        });
     }
 
     // expose only logout globally to preserve existing onclick handlers

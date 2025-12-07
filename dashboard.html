@@ -48,7 +48,7 @@
                     </div>
                     <span class="role-badge" id="roleBadge">USER</span>
                 </div>
-                <button class="btn-logout" id="logoutBtn" onclick="handleLogout()">Logout</button>
+                <button class="btn-logout" id="logoutBtn">Logout</button>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
 
             <!-- Admin Section -->
             <div class="admin-section" id="adminSection">
-                <button class="btn-add" onclick="toggleAddForm()">+ Tambah Produk Baru</button>
+                <button class="btn-add">+ Tambah Produk Baru</button>
                 <div class="add-form" id="addForm">
                     <h4 style="margin-top: 0; color: #333;">Form Tambah Produk</h4>
                     <div class="form-row">
@@ -143,8 +143,8 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="btn-save" onclick="handleAddProduct()">💾 Simpan Produk</button>
-                        <button type="button" class="btn-cancel" onclick="toggleAddForm()">Batal</button>
+                        <button type="button" class="btn-save">💾 Simpan Produk</button>
+                        <button type="button" class="btn-cancel">Batal</button>
                     </div>
                 </div>
             </div>
@@ -153,11 +153,9 @@
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="🔍 Cari nama atau deskripsi produk..." />
                 <div class="filter-group">
-                    <button class="filter-btn active" data-filter="all"
-                        onclick="applyFilter(this, 'all')">Semua</button>
-                    <button class="filter-btn" data-filter="active" onclick="applyFilter(this, 'active')">Aktif</button>
-                    <button class="filter-btn" data-filter="lowstock" onclick="applyFilter(this, 'lowstock')">Stok
-                        Rendah</button>
+                    <button class="filter-btn active" data-filter="all">Semua</button>
+                    <button class="filter-btn" data-filter="active">Aktif</button>
+                    <button class="filter-btn" data-filter="lowstock">Stok Rendah</button>
                 </div>
             </div>
 
@@ -211,15 +209,15 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="button" class="btn-save" onclick="handleSaveEdit()">💾 Perbarui</button>
-                <button type="button" class="btn-cancel" onclick="closeEditModal()">Batal</button>
+                <button type="button" class="btn-save">💾 Perbarui</button>
+                <button type="button" class="btn-cancel">Batal</button>
             </div>
         </div>
     </div>
 
     <script src="assets/js/app-core.js"></script>
-    <script src="assets/js/dashboard.js"></script>
-    <script src="assets/js/script.js"></script>
-</body>
+        <script src="assets/js/dashboard.js"></script>
+        <script src="assets/js/script.js"></script>
+    </body>
 
 </html>
